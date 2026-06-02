@@ -2,7 +2,7 @@
 # Backend = GitHub: kazda zmena v CMS se ulozi jako commit/PR do tohoto repa.
 backend:
   name: github
-  repo: hrebik/firemni-web # ZMEN na svuj GitHub repo (uzivatel/nazev)
+  repo: hrebik/Web-energylab # tvuj GitHub repo (uzivatel/nazev)
   branch: main
 
 # Editorial workflow = zmeny z CMS jdou jako Pull Request (ne rovnou online).

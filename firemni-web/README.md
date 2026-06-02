@@ -40,28 +40,30 @@ scripts/             # AI skripty (generování + enrich)
 
 ## 2. Založení GitHub repozitáře a první nasazení
 
-Tento scaffold vznikl ve větvi `claude/wordpress-ai-migration-IMaa5` repozitáře InstaPy.
-Přesuň ho do vlastního čistého repa:
+Tento scaffold žije ve větvi `claude/wordpress-ai-migration-IMaa5` repozitáře InstaPy,
+ve složce `firemni-web/`. Přesuň ho do svého čistého repa `Web-energylab`:
 
 ```bash
-# 1) Na github.com založ prázdný repozitář, např. "firemni-web" (bez README).
+# 1) Stáhni si scaffold z větve (stačí jednorázově)
+git clone --branch claude/wordpress-ai-migration-IMaa5 \
+  https://github.com/hrebik/InstaPy.git /tmp/scaffold
 
-# 2) Lokálně zkopíruj jen tuto složku do nového repa:
-cp -r firemni-web /cesta/k/firemni-web && cd /cesta/k/firemni-web
+# 2) Vyrob nový projekt z podsložky firemni-web a napoj na Web-energylab
+cp -r /tmp/scaffold/firemni-web ~/Web-energylab && cd ~/Web-energylab
 git init && git add . && git commit -m "init: firemni web (Astro + AI)"
 git branch -M main
-git remote add origin https://github.com/hrebik/firemni-web.git
+git remote add origin https://github.com/hrebik/Web-energylab.git
 git push -u origin main
 ```
 
-> V `public/admin/config.yml` uprav `repo: hrebik/firemni-web` na svůj skutečný repozitář.
+> `public/admin/config.yml` už míří na `repo: hrebik/Web-energylab` – není co měnit.
 
 ---
 
 ## 3. Hosting na Cloudflare Pages (zdarma)
 
 1. [dash.cloudflare.com](https://dash.cloudflare.com) → **Workers & Pages** → **Create** → **Pages** → **Connect to Git**.
-2. Vyber repozitář `firemni-web`.
+2. Vyber repozitář `Web-energylab`.
 3. Build nastavení:
    - **Framework preset:** Astro
    - **Build command:** `npm run build`
