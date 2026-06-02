@@ -1,0 +1,35 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Kontakt – Tvoje Firma"
+  description="Ozvěte se nám. Rádi probereme váš projekt."
+>
+  <h1>Kontakt</h1>
+  <p>
+    E-mail: <a href="mailto:info@tvujweb.cz">info@tvujweb.cz</a><br />
+    Telefon: <a href="tel:+420000000000">+420 000 000 000</a>
+  </p>
+
+  <h2>Napište nám</h2>
+  <!--
+    Staticky web nema vlastni server na zpracovani formularu. Mas dve snadne
+    moznosti zdarma:
+    1) Cloudflare Pages Functions (formular endpoint primo na Cloudflare), nebo
+    2) sluzba jako Formspree / Web3Forms - jen zmenis "action" nize.
+    Detaily v README sekce "Formulare".
+  -->
+  <form action="https://formspree.io/f/your-id" method="POST">
+    <p>
+      <label>Jméno<br /><input type="text" name="name" required /></label>
+    </p>
+    <p>
+      <label>E-mail<br /><input type="email" name="email" required /></label>
+    </p>
+    <p>
+      <label>Zpráva<br /><textarea name="message" rows="5" required></textarea></label>
+    </p>
+    <p><button type="submit">Odeslat</button></p>
+  </form>
+</BaseLayout>

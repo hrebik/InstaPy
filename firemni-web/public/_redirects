@@ -1,0 +1,10 @@
+# 301 redirecty pro Cloudflare Pages - zachovaji SEO pri migraci z WordPressu.
+# Format:  /stara-url   /nova-url   301
+#
+# Priklady (smaz a nahrad svymi skutecnymi WP URL):
+# /2023/05/nazev-clanku/        /blog/nazev-clanku/        301
+# /?p=123                       /blog/nazev-clanku/        301
+# /kontaktujte-nas/             /kontakt/                  301
+#
+# Tip: seznam starych URL vyexportujes z WP (sitemap.xml nebo plugin),
+# parovani na nove slugy ti muze pomoct sestavit i AI (viz README).

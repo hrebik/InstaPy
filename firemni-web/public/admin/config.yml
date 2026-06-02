@@ -1,0 +1,31 @@
+# Konfigurace klikaci administrace (Decap CMS).
+# Backend = GitHub: kazda zmena v CMS se ulozi jako commit/PR do tohoto repa.
+backend:
+  name: github
+  repo: hrebik/firemni-web # ZMEN na svuj GitHub repo (uzivatel/nazev)
+  branch: main
+
+# Editorial workflow = zmeny z CMS jdou jako Pull Request (ne rovnou online).
+# Diky tomu probehne i AI automatizace (GitHub Action) jeste pred publikaci.
+publish_mode: editorial_workflow
+
+# Kam CMS uklada nahrane obrazky.
+media_folder: "public/uploads"
+public_folder: "/uploads"
+
+collections:
+  - name: "blog"
+    label: "Články (blog)"
+    folder: "src/content/blog"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Titulek", name: "title", widget: "string" }
+      - { label: "SEO popisek", name: "description", widget: "text" }
+      - { label: "Datum vydání", name: "pubDate", widget: "datetime" }
+      - { label: "Autor", name: "author", widget: "string", default: "Redakce" }
+      - { label: "Hlavní obrázek", name: "heroImage", widget: "image", required: false }
+      - { label: "Alt text obrázku", name: "heroImageAlt", widget: "string", required: false }
+      - { label: "Štítky", name: "tags", widget: "list", required: false }
+      - { label: "Koncept (nepublikovat)", name: "draft", widget: "boolean", default: false }
+      - { label: "Obsah", name: "body", widget: "markdown" }

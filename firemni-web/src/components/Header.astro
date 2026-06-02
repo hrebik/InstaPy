@@ -1,0 +1,17 @@
+---
+const links = [
+  { href: "/", label: "Domů" },
+  { href: "/o-nas", label: "O nás" },
+  { href: "/blog", label: "Blog" },
+  { href: "/kontakt", label: "Kontakt" },
+];
+---
+
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="/">Tvoje Firma</a>
+    <nav class="site-nav" aria-label="Hlavní navigace">
+      {links.map((l) => <a href={l.href}>{l.label}</a>)}
+    </nav>
+  </div>
+</header>

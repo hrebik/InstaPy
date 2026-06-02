@@ -1,0 +1,45 @@
+name: AI obsah (SEO + alt texty)
+
+# Spusti se pri PR, ktery meni clanky na blogu. Doplni chybejici SEO popisky
+# a alt texty pres Claude API a vysledek commitne zpet do vetve PR.
+on:
+  pull_request:
+    paths:
+      - "src/content/blog/**"
+
+permissions:
+  contents: write # aby mohl commitnout doplnena metadata zpet do PR
+
+jobs:
+  enrich:
+    runs-on: ubuntu-latest
+    # Nepoustet na PR z forku (nemely by pristup k secretu a nelze pushnout).
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - name: Doplnit SEO a alt texty
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: node scripts/enrich-frontmatter.mjs
+
+      - name: Commitnout zmeny zpet do PR
+        run: |
+          git config user.name "ai-content-bot"
+          git config user.email "actions@github.com"
+          if ! git diff --quiet; then
+            git add src/content/blog
+            git commit -m "chore: doplnit SEO popisky a alt texty (AI)"
+            git push
+          else
+            echo "Zadne zmeny k doplneni."
+          fi

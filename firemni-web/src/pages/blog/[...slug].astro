@@ -1,0 +1,40 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+// Vygeneruje jednu HTML stranku pro kazdy clanek.
+export async function getStaticPaths() {
+  const posts = await getCollection("blog", ({ data }) => !data.draft);
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+type Props = { post: CollectionEntry<"blog"> };
+const { post } = Astro.props;
+const { Content } = await post.render();
+const { data } = post;
+---
+
+<BaseLayout
+  title={`${data.title} – Tvoje Firma`}
+  description={data.description}
+  image={data.heroImage}
+>
+  <article>
+    <h1>{data.title}</h1>
+    <p>
+      <time datetime={data.pubDate.toISOString()}>
+        {data.pubDate.toLocaleDateString("cs-CZ")}
+      </time>
+      · {data.author}
+    </p>
+    {
+      data.heroImage && (
+        <img src={data.heroImage} alt={data.heroImageAlt ?? data.title} />
+      )
+    }
+    <Content />
+  </article>
+</BaseLayout>

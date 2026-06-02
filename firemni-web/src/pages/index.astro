@@ -1,0 +1,43 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+// Posledni 3 publikovane clanky na homepage.
+const posts = (await getCollection("blog", ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+---
+
+<BaseLayout
+  title="Tvoje Firma – moderní řešení pro váš byznys"
+  description="Pomáháme firmám růst. Podívejte se na naše služby a nejnovější články."
+>
+  <section class="hero">
+    <h1>Stavíme rychlé a chytré weby</h1>
+    <p>
+      Krátký, výstižný popis toho, co vaše firma dělá a proč by si měl
+      návštěvník vybrat právě vás. Tenhle text uprav v
+      <code>src/pages/index.astro</code>.
+    </p>
+    <p><a href="/kontakt">Nezávazně nás kontaktujte →</a></p>
+  </section>
+
+  <section>
+    <h2>Z blogu</h2>
+    <ul class="post-list">
+      {
+        posts.map((post) => (
+          <li>
+            <time datetime={post.data.pubDate.toISOString()}>
+              {post.data.pubDate.toLocaleDateString("cs-CZ")}
+            </time>
+            <div>
+              <a href={`/blog/${post.slug}/`}>{post.data.title}</a>
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+    <p><a href="/blog">Všechny články →</a></p>
+  </section>
+</BaseLayout>
