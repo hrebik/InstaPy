@@ -1,0 +1,9 @@
+# První milník (replay + feature engine) běží na čisté standardní knihovně.
+# Závislosti přidáme s dalšími nástroji:
+pytest
+
+# Později:
+# pandas          # analýza nahrávek
+# matplotlib      # vizualizace volume profile / footprintu
+# discord.py      # notifikace
+# anthropic       # Claude orchestrátor
