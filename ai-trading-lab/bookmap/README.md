@@ -5,6 +5,9 @@ normalizované eventy** (viz `../SCHEMA.md`) do ndjson souboru. Funguje stejně
 živě i při přehrávání `.bmf` nahrávek v Replay módu — takže z něj generuješ
 data live i z historie.
 
+> ✅ **Hotový skeleton je v [`addon/`](addon/)** — `NdjsonExporter.java` + `build.gradle`
+> + návod na build a instalaci. Tenhle soubor je vysvětlující kontext; kód začni v `addon/`.
+
 ## Fakta o Bookmap API (ověřeno v dokumentaci)
 - Bookmap je v jádru **Java**; add-ony se píšou v Javě a dodávají jako JAR.
 - **L1 API** (Layer 1): odběr `DepthDataListener` (plná hloubka, MBP) a

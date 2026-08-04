@@ -1,0 +1,35 @@
+plugins {
+    id 'java'
+}
+
+group = 'com.aitradinglab'
+version = '0.1.0'
+
+java {
+    // Bookmap běží na moderním JDK; 11 je bezpečný základ. Uprav dle své instalace.
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+
+repositories {
+    // Oficiální Bookmap maven repo s API.
+    maven { url 'https://maven.bookmap.com/maven2/releases/' }
+    mavenCentral()
+}
+
+dependencies {
+    // Bookmap API dodává platforma za běhu → compileOnly (nebalí se do JARu).
+    // Verzi slaď s nainstalovaným Bookmapem (viz C:\Program Files\Bookmap\lib).
+    // Pokud tenhle artefakt/verze nesedí, použij lokální JARy z instalace:
+    //   compileOnly files('C:/Program Files/Bookmap/lib/bm-l1api.jar')
+    compileOnly 'com.bookmap.api:api-core:7.4.0.79'
+}
+
+jar {
+    archiveBaseName = 'ndjson-exporter'
+    // Bookmap add-on = obyčejný JAR s anotovanou třídou; závislosti se nebalí.
+    manifest {
+        attributes('Implementation-Title': 'AI Trading Lab ndjson exporter',
+                   'Implementation-Version': project.version)
+    }
+}
